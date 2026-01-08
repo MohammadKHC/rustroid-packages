@@ -2,7 +2,7 @@ import java.io.File
 
 val termuxPackagesDir = File("termux-packages-master")
 
-fun main(args: List<String>) {
+fun main(args: Array<String>) {
     runCommand("curl -sL https://github.com/termux/termux-packages/archive/master.tar.gz | tar -xz")
     setupEnvironment()
     $$"""
@@ -11,7 +11,7 @@ fun main(args: List<String>) {
         ./build-package.sh -I -C -a "${{ matrix.target_arch }}" "${packages[@]}"
     """.trimIndent()
 
-    buildPackages(listOf("bash"), args.firstOrNull() ?: "aarch64")
+    buildPackages(listOf("bash"), args.first())
 }
 
 private fun setupEnvironment() {
